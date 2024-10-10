@@ -179,14 +179,14 @@
    </section>
    
    <audio id="backgroundMusic" loop>
-     <source src="https://open.spotify.com/track/7nbIGbDitZIYoMrMsXunAu?si=v28W22oYQNyRnmt3-bmIqg" type="audio/mpeg">
+     <source src="https://open.spotify.com/track/7nbIGbDitZIYoMrMsXunAu?si=0d0-QWpgSduZxuZ00qMXSg" type="audio/mpeg">
      Your browser does not support the audio element.
    </audio>
    
    <button id="audioControl" aria-label="Toggle music">♪</button>
 
    <footer class="footer">
-     No Copyright &#169; 2024 FB Reels & Video Downloader.Haru All rights unreserved.
+     &#169; 2024 Haru. All rights unreserved.
    </footer>
 
 <script>
@@ -242,26 +242,37 @@ function downloadVideo(videoUrl) {
 const audio = document.getElementById('backgroundMusic');
 const audioControl = document.getElementById('audioControl');
 
-audioControl.addEventListener('click', function() {
-    if (audio.paused) {
-        audio.play();
+function playAudio() {
+    audio.play().then(() => {
         audioControl.textContent = '♪';
         audioControl.setAttribute('aria-label', 'Pause music');
+    }).catch((error) => {
+        console.log('Autoplay was prevented. User interaction is required to start the audio.');
+        audioControl.textContent = '♪';
+        audioControl.setAttribute('aria-label', 'Play music');
+    });
+}
+
+function toggleAudio() {
+    if (audio.paused) {
+        playAudio();
     } else {
         audio.pause();
         audioControl.textContent = '♪';
         audioControl.setAttribute('aria-label', 'Play music');
     }
-});
+}
+
+audioControl.addEventListener('click', toggleAudio);
 
 // Try to play audio when the page loads
-window.addEventListener('load', function() {
-    audio.play().catch(function(error) {
-        console.log('Autoplay was prevented. User interaction is required to start the audio.');
-        audioControl.textContent = '♪';
-        audioControl.setAttribute('aria-label', 'Play music');
-    });
-});
+document.addEventListener('DOMContentLoaded', playAudio);
+
+// Attempt to play audio on the first user interaction with the page
+document.addEventListener('click', function initialPlay() {
+    playAudio();
+    document.removeEventListener('click', initialPlay);
+}, { once: true });
 </script>
 </body>
 </html>
