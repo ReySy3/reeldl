@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FB Reels/Videos Downloader</title>
+  <style>
+    body {
+            font-family: "Circular", "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black; /* Spotify's background color */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .section {
+          position: relative;
+            width: 88%;
+            max-width: 500px;
+            background-color: #000; /* Spotify's container background color */
+            border-radius: 10px;
+            box-shadow: 0px 0px 35px rgba(25, 255, 255, 2.5);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card {
+          position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 350px;
+            height: 230px;
+        }
+
+        .card h2 {
+            position: absolute;
+            top: 5px;
+            font-size: 28px;
+            color: #fff; /* Spotify's primary color */
+            margin-left: 20px;
+            text-shadow: 0px 0px 19px rgba(255, 25, 25, 2.5);
+        }
+        
+        .fb {
+            position: absolute;
+            box-shadow: 0px 0px 10px rgba(25, 255, 255, 2.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            margin-top: -140px;
+            margin-right: 260px;
+            opacity: 75%;
+        }
+        
+        .form {
+            margin-bottom: -120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #000; /* Spotify's input border color */
+            border-radius: 25px; /* Spotify's input border radius */
+            box-shadow: 0px 5px 10px rgba(255, 255, 255, .5);
+            font-size: 16px;
+            background-color: #000; /*535353 Spotify's input background color */
+            color: lightskyblue;
+            padding-left: 20px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        button {
+            position: flex;
+            padding: 10px 20px;
+            margin-top: 5px;
+            cursor: pointer;
+            background-color: transparent; /* 1db954 Spotify's primary color */
+            color: #fff;
+            border: none;
+            border-radius: 20px; /* Spotify's button border radius */
+            box-shadow: 0px 5px 18px rgba(55, 25, 255, 2.5);
+            font-size: 16px;
+            outline: none;
+            width: 160px;
+            animation: glow 2.5s infinite alternate;
+        }
+        
+        @keyframes glow {
+        0% { color: red; text-shadow: 0 0 5px red; }
+        25% { color: blue; text-shadow: 0 0 5px blue; }
+        50% { color: green; text-shadow: 0 0 5px green; }
+        75% { color: skyblue; text-shadow: 0 0 5px skyblue; }
+        100% { color: red; text-shadow: 0 0 5px red; }
+         }
+         
+         h1 {
+           position: absolute;
+           color: #fff;
+           font-size: 28px;
+           margin-left: 80px;
+           margin-top: 70px;;
+           font-weight: bold;
+        }
+         .tut {
+           position: absolute;
+           margin-left: -255px;
+           margin-top: 150px;
+           width: 150%;
+           height: 268px;
+           max-width: 110%;
+           box-shadow: 0px 0px 5px rgba(25, 255, 255, 2.5);
+         }
+         
+         #audioControl {
+           position: fixed;
+           bottom: 20px;
+           right: 20px;
+           background-color: rgba(0, 0, 0, 0.5);
+           color: white;
+           border: none;
+           border-radius: 50%;
+           width: 40px;
+           height: 40px;
+           font-size: 20px;
+           cursor: pointer;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+         }
+
+         .footer {
+           position: fixed;
+           bottom: 0;
+           left: 0;
+           width: 100%;
+           text-align: center;
+           padding: 10px 0;
+           font-size: 14px;
+           background-color: rgba(0, 0, 0, 0.5);
+           animation: rainbowText 5s linear infinite;
+         }
+
+         @keyframes rainbowText {
+           0% { color: #ff0000; }
+           14% { color: #ff7f00; }
+           28% { color: #ffff00; }
+           42% { color: #00ff00; }
+           57% { color: #0000ff; }
+           71% { color: #8b00ff; }
+           85% { color: #ff00ff; }
+           100% { color: #ff0000; }
+         }
+  </style>
+</head>
+
+<body>
+  <section class="section" id="fbdl">
+            <div class="card">
+              <img src="https://i.imgur.com/Hb9MWhW.jpeg" alt="logo" class="fb">
+                <h2>FB Reels & Video Downloader</h2>
+               <div class="form">
+                <form onsubmit="event.preventDefault(); GetReels();">
+                    <input type="text" class="link Facebook" id="fbUrl" placeholder="Enter Your Link..." autofocus required />
+                    <button type="submit" class="fbDownload">Download</button>
+                </form>
+            </div>
+            </div>
+   </section>
+   
+   <audio id="backgroundMusic" loop>
+     <source src="https://open.spotify.com/track/7nbIGbDitZIYoMrMsXunAu?si=v28W22oYQNyRnmt3-bmIqg" type="audio/mpeg">
+     Your browser does not support the audio element.
+   </audio>
+   
+   <button id="audioControl" aria-label="Toggle music">♪</button>
+
+   <footer class="footer">
+     No Copyright &#169; 2024 FB Reels & Video Downloader.Haru All rights unreserved.
+   </footer>
+
+<script>
+async function GetReels() {
+    let url = document.getElementById('fbUrl').value.trim(); 
+    let apiUrl = "https://deku-rest-api.ooguy.com/facebook?url=" + url;
+
+    try {
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch video URL. Please check your URL and try again.');
+        }
+
+        const responseData = await response.json(); 
+
+        const videoUrl = responseData.result;
+
+        if (!videoUrl) {
+            throw new Error('Video URL not found in the response. Please check your URL and try again.');
+        }
+
+        downloadVideo(videoUrl);
+        
+        document.getElementById('fbUrl').value = "";
+    } catch (error) {
+        console.error('Error fetching video:', error);
+        alert(error.message);
+    }
+}
+
+function downloadVideo(videoUrl) {
+    // Check if video URL is provided
+    if (!videoUrl) {
+        console.error('Video URL is missing');
+        return;
+    }
+    // Create an anchor element
+    const a = document.createElement('a');
+    // Set the href attribute to the video URL
+    a.href = videoUrl;
+    // Set the download attribute to force download
+    a.download = 'video.mp4';
+    // Append the anchor element to the document body
+    document.body.appendChild(a);
+    // Simulate a click event on the anchor element
+    a.click();
+    // Remove the anchor element from the document body
+    document.body.removeChild(a);
+}
+
+// Audio control
+const audio = document.getElementById('backgroundMusic');
+const audioControl = document.getElementById('audioControl');
+
+audioControl.addEventListener('click', function() {
+    if (audio.paused) {
+        audio.play();
+        audioControl.textContent = '♪';
+        audioControl.setAttribute('aria-label', 'Pause music');
+    } else {
+        audio.pause();
+        audioControl.textContent = '♪';
+        audioControl.setAttribute('aria-label', 'Play music');
+    }
+});
+
+// Try to play audio when the page loads
+window.addEventListener('load', function() {
+    audio.play().catch(function(error) {
+        console.log('Autoplay was prevented. User interaction is required to start the audio.');
+        audioControl.textContent = '♪';
+        audioControl.setAttribute('aria-label', 'Play music');
+    });
+});
+</script>
+</body>
+</html>
